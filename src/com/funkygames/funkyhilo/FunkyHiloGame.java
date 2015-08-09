@@ -6,6 +6,7 @@ import com.funkygames.funkyhilo.constants.Choice;
 import com.funkygames.funkyhilo.constants.Result;
 import com.funkygames.funkyhilo.model.Card;
 import com.funkygames.funkyhilo.model.Dealer;
+import com.funkygames.funkyhilo.model.GameResult;
 
 public class FunkyHiloGame {
 
@@ -26,16 +27,15 @@ public class FunkyHiloGame {
 
 		Card secondCard = dealer.deal();
 		
-		// end game
-		endGame(firstCard,secondCard,playerChoice);
+		// 4.2 display the second card to the user
+		System.out.println("Second Card: " + secondCard);
+		
+		// determine outcome
+		determineOutcome(firstCard,secondCard,playerChoice);
 
 	}
 
-	private static void endGame(Card firstCard,Card secondCard, Choice playerChoice) {
-		
-
-		// 4.2 display the second card to the user
-		System.out.println("Second Card: " + secondCard);
+	private static void determineOutcome(Card firstCard,Card secondCard, Choice playerChoice) {
 
 		// 5. decide the outcome
 		// if secondCard.compareTo(firstCard) > 0 then outcome is HI else LO
