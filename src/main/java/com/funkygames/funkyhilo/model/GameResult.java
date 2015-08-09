@@ -1,8 +1,11 @@
 package com.funkygames.funkyhilo.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import com.funkygames.funkyhilo.constants.Choice;
 import com.funkygames.funkyhilo.constants.Result;
 
+@XmlRootElement
 public class GameResult {
 	private Card firstCard;
 	
@@ -14,6 +17,10 @@ public class GameResult {
 	
 	private Result result;
 
+	public GameResult() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Card getFirstCard() {
 		return firstCard;
 	}
