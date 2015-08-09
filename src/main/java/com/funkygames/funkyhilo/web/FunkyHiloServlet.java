@@ -57,22 +57,37 @@ public class FunkyHiloServlet extends HttpServlet {
 		Choice playerChoice = Choice.parse(choice);
 
 		// determine outcome
-		GameResult result = gameService.endGame(game, playerChoice);
+		gameService.endGame(game, playerChoice);
+		
+		displayFirstCard(resp);
+		
+		displaySecondCard(resp);
 
-		String secondCardMessage = messageService
-				.readMessage(MessageService.SECOND_CARD_MESSAGE_ID);
-		resp.getWriter().print(secondCardMessage);
+		displayResult(resp);
+	}
 
+	private void displayResult(HttpServletResponse resp) throws IOException {
 		String gameResultMessage = messageService
 				.readMessage(MessageService.GAME_RESULT_MESSAGE_ID);
 		resp.getWriter().print(gameResultMessage);
 	}
 
+	private void displaySecondCard(HttpServletResponse resp) throws IOException {
+		String secondCardMessage = messageService
+				.readMessage(MessageService.SECOND_CARD_MESSAGE_ID);
+		resp.getWriter().print(secondCardMessage);
+		resp.getWriter().print("\n");
+	}
+
 	private Game start(HttpServletResponse resp) throws IOException {
 		Game game = gameService.startGame();
+		displayFirstCard(resp);
+		return game;
+	}
+
+	private void displayFirstCard(HttpServletResponse resp) throws IOException {
 		String firstCardMessage = messageService
 				.readMessage(MessageService.FIRST_CARD_MESSAGE_ID);
 		resp.getWriter().print(firstCardMessage);
-		return game;
 	}
 }
