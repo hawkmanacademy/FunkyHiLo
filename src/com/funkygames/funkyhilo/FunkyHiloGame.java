@@ -16,19 +16,26 @@ public class FunkyHiloGame {
 		Dealer dealer = new Dealer();
 
 		// start game
-		Card firstCard = startGame(dealer);
-
+		Card firstCard = firstCard(dealer);
+		Card secondCard = secondCard(dealer);
+		
 		Choice playerChoice = processPlayerChoice();
-
-		Card secondCard = endGame(dealer);
 		
 		// determine outcome
 		GameResult result = determineOutcome(firstCard,secondCard,playerChoice);
 
 		System.out.println("You " + result.getResult() + "!");
 	}
-
-	private static Card endGame(Dealer dealer) {
+	
+	private static Card firstCard(Dealer dealer) {
+		// 2. deal the first card
+		Card firstCard = dealer.deal();
+		// 2.1 display the first card to the user
+		System.out.println("First Card: " + firstCard);
+		return firstCard;
+	}
+	
+	private static Card secondCard(Dealer dealer) {
 		Card secondCard = dealer.deal();
 		
 		// 4.2 display the second card to the user
@@ -54,9 +61,7 @@ public class FunkyHiloGame {
 		gameResult.setSecondCard(secondCard);
 		gameResult.setPlayerChoice(playerChoice);
 		
-		// 5. decide the outcome
-		// if secondCard.compareTo(firstCard) > 0 then outcome is HI else LO
-		Choice gameOutcome = determineGameOutCome(firstCard, secondCard);
+		Choice gameOutcome = determineGameOutcome(firstCard, secondCard);
 		gameResult.setGameOutcome(gameOutcome);
 
 		Result result = null;
@@ -70,7 +75,9 @@ public class FunkyHiloGame {
 		return gameResult;
 	}
 
-	private static Choice determineGameOutCome(Card firstCard, Card secondCard) {
+	private static Choice determineGameOutcome(Card firstCard, Card secondCard) {
+		// 5. decide the outcome
+		// if secondCard.compareTo(firstCard) > 0 then outcome is HI else LO
 		Choice gameOutcome = null;
 		if (firstCard.compareTo(secondCard) > 0) {
 			gameOutcome = Choice.HI;
@@ -80,15 +87,6 @@ public class FunkyHiloGame {
 		return gameOutcome;
 	}
 
-	private static Card startGame(Dealer dealer) {
-		// 2. deal the first card
-		Card firstCard = dealer.deal();
 
-		// 2.1 display the first card to the user
-		System.out.println("First Card: " + firstCard);
-
-
-		return firstCard;
-	}
 
 }
