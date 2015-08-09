@@ -56,12 +56,7 @@ public class FunkyHiloGame {
 		
 		// 5. decide the outcome
 		// if secondCard.compareTo(firstCard) > 0 then outcome is HI else LO
-		Choice gameOutcome = null;
-		if (firstCard.compareTo(secondCard) > 0) {
-			gameOutcome = Choice.HI;
-		} else {
-			gameOutcome = Choice.LO;
-		}
+		Choice gameOutcome = determineGameOutCome(firstCard, secondCard);
 		gameResult.setGameOutcome(gameOutcome);
 
 		Result result = null;
@@ -73,6 +68,16 @@ public class FunkyHiloGame {
 		gameResult.setResult(result);
 
 		return gameResult;
+	}
+
+	private static Choice determineGameOutCome(Card firstCard, Card secondCard) {
+		Choice gameOutcome = null;
+		if (firstCard.compareTo(secondCard) > 0) {
+			gameOutcome = Choice.HI;
+		} else {
+			gameOutcome = Choice.LO;
+		}
+		return gameOutcome;
 	}
 
 	private static Card startGame(Dealer dealer) {
