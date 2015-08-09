@@ -1,6 +1,7 @@
 package com.funkygames.funkyhilo.services;
 
 import com.funkygames.funkyhilo.constants.Choice;
+import com.funkygames.funkyhilo.constants.Result;
 import com.funkygames.funkyhilo.model.Card;
 import com.funkygames.funkyhilo.model.Dealer;
 import com.funkygames.funkyhilo.model.Game;
@@ -11,7 +12,7 @@ public class HiLoGameService implements GameService {
 	private Dealer dealer;
 
 	public HiLoGameService() {
-		// TODO Auto-generated constructor stub
+		this.dealer = new Dealer();
 	}
 
 	@Override
@@ -36,8 +37,22 @@ public class HiLoGameService implements GameService {
 
 	@Override
 	public GameResult endGame(Game game, Choice playerChoice) {
-		// TODO Auto-generated method stub
-		return null;
+		GameResult gameResult = new GameResult();
+		gameResult.setFirstCard(game.getFirstCard());
+		gameResult.setSecondCard(game.getSecondCard());
+		gameResult.setGameOutcome(game.getOutcome());
+		
+		gameResult.setPlayerChoice(playerChoice);
+
+		Result result = null;
+		if (playerChoice == game.getOutcome()) {
+			result = Result.WON;
+		} else {
+			result = Result.LOST;
+		}
+		gameResult.setResult(result);
+
+		return gameResult;
 	}
 
 }
