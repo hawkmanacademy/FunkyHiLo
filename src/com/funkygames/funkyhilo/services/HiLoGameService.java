@@ -33,10 +33,17 @@ public class HiLoGameService implements GameService {
 		
 		// 4 deal the second card
 		Card secondCard = dealer.deal();
-		messageService.sendMessage(MessageService.SECOND_CARD_MESSAGE_ID, "Second card is " + secondCard);
-		
 		// 5 add the second card to the game
 		game.setSecondCard(secondCard);
+		
+		//support the DRAW and deal a new card
+		while (game.getOutcome() == Choice.DRAW){
+			 secondCard = dealer.deal();
+			// 5 add the second card to the game
+			game.setSecondCard(secondCard);
+		}
+		
+		messageService.sendMessage(MessageService.SECOND_CARD_MESSAGE_ID, "Second card is " + secondCard);
 		
 		// return the game
 		return game;
@@ -52,7 +59,7 @@ public class HiLoGameService implements GameService {
 		gameResult.setPlayerChoice(playerChoice);
 
 		Result result = null;
-		if (playerChoice == game.getOutcome()) {
+		if (playerChoice == game.getOutcome() ) {
 			result = Result.WON;
 		} else {
 			result = Result.LOST;
