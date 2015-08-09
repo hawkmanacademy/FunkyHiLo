@@ -18,22 +18,34 @@ public class FunkyHiloGame {
 		// start game
 		Card firstCard = startGame(dealer);
 
+		Choice playerChoice = processPlayerChoice();
+
+		Card secondCard = endGame(dealer);
+		
+		// determine outcome
+		GameResult result = determineOutcome(firstCard,secondCard,playerChoice);
+
+		System.out.println("You " + result.getResult() + "!");
+	}
+
+	private static Card endGame(Dealer dealer) {
+		Card secondCard = dealer.deal();
+		
+		// 4.2 display the second card to the user
+		System.out.println("Second Card: " + secondCard);
+		return secondCard;
+	}
+
+	private static Choice processPlayerChoice() {
+		// 3. prompt the player for their choice
+		System.out.println("Is the next card Hi or Lo?");
 		Scanner scanner = new Scanner(System.in);
 		String input = scanner.nextLine();
 
 		System.out.println("user entered: " + input);
 
 		Choice playerChoice = Choice.valueOf(input);
-
-		Card secondCard = dealer.deal();
-		
-		// 4.2 display the second card to the user
-		System.out.println("Second Card: " + secondCard);
-		
-		// determine outcome
-		GameResult result = determineOutcome(firstCard,secondCard,playerChoice);
-
-		System.out.println("You " + result.getResult() + "!");
+		return playerChoice;
 	}
 
 	private static GameResult determineOutcome(Card firstCard,Card secondCard, Choice playerChoice) {
@@ -70,8 +82,6 @@ public class FunkyHiloGame {
 		// 2.1 display the first card to the user
 		System.out.println("First Card: " + firstCard);
 
-		// 3. prompt the player for their choice
-		System.out.println("Is the next card Hi or Lo?");
 
 		return firstCard;
 	}
