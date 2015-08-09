@@ -17,10 +17,22 @@ public class FunkyHiloGame {
 	
 	public static void main(String[] args) {
 		MessageService messageService = new InMemoryMessageService();
-		 
 		HiLoGameService gameService = new HiLoGameService(messageService);
-		Game game = gameService.startGame();
+	
+		Scanner scanner = new Scanner(System.in);
+		String signal = "";
 		
+		do{
+			playGame(messageService, gameService);
+			System.out.println("Do you want to play another game?");
+			signal = scanner.nextLine();
+		}while(!"n".equalsIgnoreCase(signal));
+		scanner.close();
+	}
+
+	private static void playGame(MessageService messageService,
+			HiLoGameService gameService) {
+		Game game = gameService.startGame();
 		String firstCardMessage = messageService.readMessage(MessageService.FIRST_CARD_MESSAGE_ID);
 		System.out.println(firstCardMessage);
 		
