@@ -31,12 +31,17 @@ public class FunkyHiloGame {
 		System.out.println("Second Card: " + secondCard);
 		
 		// determine outcome
-		determineOutcome(firstCard,secondCard,playerChoice);
+		GameResult result = determineOutcome(firstCard,secondCard,playerChoice);
 
+		System.out.println("You " + result.getResult() + "!");
 	}
 
-	private static void determineOutcome(Card firstCard,Card secondCard, Choice playerChoice) {
-
+	private static GameResult determineOutcome(Card firstCard,Card secondCard, Choice playerChoice) {
+		GameResult gameResult = new GameResult();
+		gameResult.setFirstCard(firstCard);
+		gameResult.setSecondCard(secondCard);
+		gameResult.setPlayerChoice(playerChoice);
+		
 		// 5. decide the outcome
 		// if secondCard.compareTo(firstCard) > 0 then outcome is HI else LO
 		Choice gameOutcome = null;
@@ -45,6 +50,7 @@ public class FunkyHiloGame {
 		} else {
 			gameOutcome = Choice.LO;
 		}
+		gameResult.setGameOutcome(gameOutcome);
 
 		Result result = null;
 		if (playerChoice == gameOutcome) {
@@ -52,8 +58,9 @@ public class FunkyHiloGame {
 		} else {
 			result = Result.LOST;
 		}
+		gameResult.setResult(result);
 
-		System.out.println("You " + result + "!");
+		return gameResult;
 	}
 
 	private static Card startGame(Dealer dealer) {
