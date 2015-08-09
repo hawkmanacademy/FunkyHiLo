@@ -43,7 +43,7 @@ public class FunkyHiloGame {
 
 		System.out.println("user entered: " + input);
 
-		Choice playerChoice = Choice.valueOf(input);
+		Choice playerChoice = Choice.parse(input);
 		return playerChoice;
 	}
 }

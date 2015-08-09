@@ -25,10 +25,13 @@ public class Game {
 	}
 	
 	public Choice getOutcome(){
+		int compare = firstCard.compareTo(secondCard);
 		Choice gameOutcome = null;
-		if (firstCard.compareTo(secondCard) > 0) {
+		if (compare == 0){
+			gameOutcome = Choice.DRAW;
+		}else if (compare > 0) {
 			gameOutcome = Choice.HI;
-		} else {
+		} else if (compare < 0) {
 			gameOutcome = Choice.LO;
 		}
 		return gameOutcome;
