@@ -9,28 +9,34 @@ import com.funkygames.funkyhilo.model.Dealer;
 import com.funkygames.funkyhilo.model.Game;
 import com.funkygames.funkyhilo.model.GameResult;
 import com.funkygames.funkyhilo.services.HiLoGameService;
+import com.funkygames.funkyhilo.services.InMemoryMessageService;
+import com.funkygames.funkyhilo.services.MessageService;
 
 public class FunkyHiloGame {
-
+	private MessageService messageService;
+	
 	public static void main(String[] args) {
-
-		// 1 Create Dealer
-		HiLoGameService gameService = new HiLoGameService();
+		MessageService messageService = new InMemoryMessageService();
+		 
+		HiLoGameService gameService = new HiLoGameService(messageService);
 		Game game = gameService.startGame();
-		System.out.println("First card is " + game.getFirstCard());
+		
+		String firstCardMessage = messageService.readMessage(MessageService.FIRST_CARD_MESSAGE_ID);
+		System.out.println(firstCardMessage);
 		
 		Choice playerChoice = processPlayerChoice();
 		
 		// determine outcome
 		GameResult result = gameService.endGame(game,playerChoice);
 
-		System.out.println("Second Card is " + result.getSecondCard());
+		String secondCardMessage = messageService.readMessage(MessageService.SECOND_CARD_MESSAGE_ID);
+		System.out.println(secondCardMessage);
 		
-		System.out.println("You " + result.getResult() + "!");
+		String gameResultMessage = messageService.readMessage(MessageService.GAME_RESULT_MESSAGE_ID);
+		System.out.println(gameResultMessage);
 	}
 	
 	private static Choice processPlayerChoice() {
-		// 3. prompt the player for their choice
 		System.out.println("Is the next card Hi or Lo?");
 		Scanner scanner = new Scanner(System.in);
 		String input = scanner.nextLine();

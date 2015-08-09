@@ -9,10 +9,13 @@ import com.funkygames.funkyhilo.model.GameResult;
 
 public class HiLoGameService implements GameService {
 
+	private MessageService messageService;
+	
 	private Dealer dealer;
 
-	public HiLoGameService() {
+	public HiLoGameService(MessageService messageService) {
 		this.dealer = new Dealer();
+		this.messageService = messageService;
 	}
 
 	@Override
@@ -23,11 +26,15 @@ public class HiLoGameService implements GameService {
 		// 2 deal the first card
 		// 2. deal the first card
 		Card firstCard = dealer.deal();
+		messageService.sendMessage(MessageService.FIRST_CARD_MESSAGE_ID, "First card is " + firstCard);
+		
 		// 3 add the first card to the game
 		game.setFirstCard(firstCard);
 		
 		// 4 deal the second card
 		Card secondCard = dealer.deal();
+		messageService.sendMessage(MessageService.SECOND_CARD_MESSAGE_ID, "Second card is " + secondCard);
+		
 		// 5 add the second card to the game
 		game.setSecondCard(secondCard);
 		
@@ -51,7 +58,9 @@ public class HiLoGameService implements GameService {
 			result = Result.LOST;
 		}
 		gameResult.setResult(result);
-
+		
+		messageService.sendMessage(MessageService.GAME_RESULT_MESSAGE_ID, "You " + result + "!");
+		
 		return gameResult;
 	}
 
